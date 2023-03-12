@@ -1,0 +1,27 @@
+import NavBar from "../components/Navbar"
+import Layout from "../components/Layout"
+import { NextComponentType } from "next"
+import { AppContext, AppInitialProps, AppProps } from "next/app";
+import "tailwindcss/tailwind.css";
+import '../styles/globals.css'
+
+const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps }) => {
+  return (<Layout>
+    <Component {...pageProps} />
+  </Layout>);
+}
+
+MyApp.getInitialProps = async ({ Component, ctx }: AppContext): Promise<AppInitialProps> => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+
+  return { pageProps };
+}
+
+
+
+export default MyApp;

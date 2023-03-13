@@ -1,20 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-/*
-domains: ['firebasestorage.googleapis.com'],
-loader: 'imgix',
-path: 'https://https://firebasestorage.googleapis.com/images',
-*/
-/*
-remotePatterns: [
-  {
-    protocol: 'https',
-    hostname: 'firebasestorage.googleapis.com',
-    port: '',
-    pathname: '/images/**',
-  },
-],
-*/
 module.exports = {
   env: {
     BASE_URL: process.env.BASE_URL,
@@ -22,6 +7,11 @@ module.exports = {
     es6: true,
     node: true,
   },
+  assetPrefix:
+    process.env.NODE_ENV === "production"
+      ? "http://JuJangGwon.github.io/ContainerMananger"
+      : "",
+
   images: {
     domains: ['firebasestorage.googleapis.com'],
     loader: 'imgix',

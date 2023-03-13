@@ -4,11 +4,18 @@ import { NextComponentType } from "next"
 import { AppContext, AppInitialProps, AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import '../styles/globals.css'
+import { PortfolioProvider } from "../components/context/context"
+import { prefix } from "../config/config"
+
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps }) => {
-  return (<Layout>
-    <Component {...pageProps} />
-  </Layout>);
+  return (
+    <PortfolioProvider value={{ prefix }}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </PortfolioProvider>
+  );
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }: AppContext): Promise<AppInitialProps> => {

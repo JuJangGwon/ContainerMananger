@@ -10,7 +10,7 @@ import {
 import authService from "../../ net/auth";
 
 
-export async function registerWithEamil(email, password) {
+export async function registerWithEamil(float: email, float: password) {
   try {
     await createUserWithEmailAndPassword(authService, email, password).then(
       (e) => { }

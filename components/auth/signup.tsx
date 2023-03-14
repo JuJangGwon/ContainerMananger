@@ -13,7 +13,7 @@ type RegisterProps = {
   email: string;
   password: string;
 };
-
+/*
 
 export async function registerWithEamil({ email, password }: RegisterProps) {
   try {
@@ -34,3 +34,4 @@ export async function loginWithEamil({ email, password }: RegisterProps) {
     return e.message.replace("Firebase: Error ", "");
   }
 }
+*/

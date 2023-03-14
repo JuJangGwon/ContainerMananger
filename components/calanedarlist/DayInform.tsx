@@ -80,7 +80,6 @@ export default function DayInform(props: MyComponentProps) {
                             <p></p>
                     }
                 </div>
-
                 <div className="flex gap-1">
                     {
                         signNo_list.length !== 0

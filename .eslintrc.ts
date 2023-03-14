@@ -16,6 +16,8 @@ module.exports = {
     ],
     rules: {
         "react/react-in-jsx-scope": "off",
-        "react/jsx-filename-extension": [1, { extensions: [".ts", ".tsx"] }], //should add ".ts" if typescript project
+        "react/no-unescaped-entities": "off",
+        "@next/next/no-page-custom-font": "off"
+        // "react/jsx-filename-extension": [1, { extensions: [".ts", ".tsx"] }], //should add ".ts" if typescript project
     },
 };

@@ -1,12 +1,12 @@
 import db from "../../ net/db";
 import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import SignDayState from "../containerlist/modal/Signdaystate";
+import SignDayState from "../containerlist/modal/SignDayState";
 
 type DateProp = {
     date: any;
 };
-export default function DayInform( { date }: DateProp) {
+export default function DayInform({ date }: DateProp) {
 
     const [signOk_list, setSignOk_list] = useState([]);
     const [signNo_list, setSignNo_list] = useState([]);
@@ -20,7 +20,7 @@ export default function DayInform( { date }: DateProp) {
             where("rentDay", "array-contains", date)
         )
         onSnapshot(q, (snapshot) => {
-            const getdatalist = snapshot.docs.map((doc : any) => ({
+            const getdatalist = snapshot.docs.map((doc: any) => ({
                 id: doc.id,
                 ...doc.data(),
             }));

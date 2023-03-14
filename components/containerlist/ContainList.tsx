@@ -1,8 +1,6 @@
 import { collection, getDocs, query } from "firebase/firestore";
 import db from "../../ net/db";
 import { useEffect, useState } from "react";
-import Image from "next/image"
-import Link from "next/link";
 import ContainItem from "./ContainItem";
 
 

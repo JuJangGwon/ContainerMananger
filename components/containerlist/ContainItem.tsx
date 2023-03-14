@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStorage, ref, uploadBytes, listAll, getDownloadURL, } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, } from "firebase/storage";
 
 import Image from "next/image"
 import Link from "next/link";

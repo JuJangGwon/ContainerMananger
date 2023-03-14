@@ -3,7 +3,10 @@ import { collection, getDocs, query, where, onSnapshot } from "firebase/firestor
 import { useState, useEffect } from "react";
 import SignDayState from "../containerlist/modal/Signdaystate";
 
-export default function DayInform({ date }) {
+type DateProp = {
+    date: any;
+};
+export default function DayInform( { date }: DateProp) {
 
     const [signOk_list, setSignOk_list] = useState([]);
     const [signNo_list, setSignNo_list] = useState([]);
@@ -17,7 +20,7 @@ export default function DayInform({ date }) {
             where("rentDay", "array-contains", date)
         )
         onSnapshot(q, (snapshot) => {
-            const getdatalist = snapshot.docs.map((doc) => ({
+            const getdatalist = snapshot.docs.map((doc : any) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
@@ -26,10 +29,6 @@ export default function DayInform({ date }) {
             }
         });
     }, []);
-
-    useEffect(() => {
-        console.log(signNo_list.length);
-    }, [signNo_list]);
 
 
     useEffect(() => {
@@ -52,7 +51,7 @@ export default function DayInform({ date }) {
         }
     }, [list]);
 
-    const onClickDay = (event) => {
+    const onClickDay = () => {
         setOpenModal(true);
     }
 

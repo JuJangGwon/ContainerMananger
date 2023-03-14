@@ -3,7 +3,13 @@ import db from "../../../ net/db";
 import { useState, useEffect } from "react";
 import moment from 'moment';
 
-export default function AddRentInform({ state, setState, Id }) {
+type AddRentinformType = {
+    setState: React.Dispatch<React.SetStateAction<boolean>>;
+    Id: boolean
+
+}
+
+export default function AddRentInform({ setState, Id }: AddRentinformType) {
 
     const [rentCompany, setRentCompany] = useState("");
     const [rentManager, setRentManager] = useState("");
@@ -24,7 +30,7 @@ export default function AddRentInform({ state, setState, Id }) {
     }
 
 
-    const onClickSubmit = async (event) => {
+    const onClickSubmit = async (event: React.FormEvent<HTMLButtonElement>) => {
 
         event.preventDefault();
         const ContainerID = Id;
@@ -81,7 +87,7 @@ export default function AddRentInform({ state, setState, Id }) {
         console.log(rentData_id);
         console.log(containerInform_db);
         await updateDoc(containerInform_db, { // 수정하고 업데이트하기
-            renting: rentData_id, 
+            renting: rentData_id,
         });
     };
 
@@ -96,12 +102,12 @@ export default function AddRentInform({ state, setState, Id }) {
 
                 <div className="propertys">
                     <label for="rentCompany"> 임대업체  </label>
-                    <input id="rentCompany" value={rentCompany} onChange={event => setRentCompany(event.target.value)} />
+                    <input id="rentCompany" value={rentCompany} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentCompany(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대관리자 </label>
-                    <input id="standard" value={rentManager} onChange={event => setRentManager(event.target.value)} />
+                    <input id="standard" value={rentManager} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentManager(event.target.value)} />
 
                 </div>
                 <div className="propertys flex">
@@ -110,52 +116,52 @@ export default function AddRentInform({ state, setState, Id }) {
                         <input type="date"
                             id="date"
                             value={rentStartDay}
-                            onChange={event => setRentStartDay(event.target.value)}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentStartDay(event.target.value)}
                         ></input>
                         <h1> ~ </h1>
                         <input type="date"
                             id="date"
                             value={rentEndDay}
-                            onChange={event => setRentEndDay(event.target.value)}
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentEndDay(event.target.value)}
                         ></input>
-                        <input id="month" onChange={event => setRentPriod(event.target.value)} value={rentPriod} />
+                        <input id="month" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentPriod(event.target.value)} value={rentPriod} />
                         <label for="month"> 개월 </label>
                     </div>
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대료 </label>
-                    <input id="standard" value={rentfee} onChange={event => setRentfee(event.target.value)} />
+                    <input id="standard" value={rentfee} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentfee(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대료 정산일 </label>
-                    <input id="standard" value={rentSignday} onChange={event => setRentSignday(event.target.value)} />
+                    <input id="standard" value={rentSignday} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentSignday(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대위치 </label>
-                    <input id="standard" value={rentWhere} onChange={event => setRentWhere(event.target.value)} />
+                    <input id="standard" value={rentWhere} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentWhere(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 운반비 </label>
-                    <input id="standard" value={shipmentFee} onChange={event => setShipmentFee(event.target.value)} />
+                    <input id="standard" value={shipmentFee} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setShipmentFee(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대업체 주소 </label>
-                    <input id="standard" value={rentHomewhere} onChange={event => setRentHomewhere(event.target.value)} />
+                    <input id="standard" value={rentHomewhere} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentHomewhere(event.target.value)} />
 
                 </div>
                 <div className="propertys">
                     <label for="standard"> 임대업체 연락처 </label>
-                    <input id="standard" value={rentHometel} onChange={event => setRentHometel(event.target.value)} />
+                    <input id="standard" value={rentHometel} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentHometel(event.target.value)} />
 
                 </div>
 
                 <div className="propertys">
                     <label for="standard"> 임대관리자 연락처 </label>
-                    <input id="standard" value={rentManagerTel} onChange={event => setRentManagerTel(event.target.value)} />
+                    <input id="standard" value={rentManagerTel} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setRentManagerTel(event.target.value)} />
 
                 </div>
                 <div className="propertys">

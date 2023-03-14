@@ -5,11 +5,17 @@ import moment from 'moment';
 import { checkServerIdentity } from "tls";
 import AddRentInform from "../modal/AddRentInform";
 
-export default function ContainerSignInform({ Id, data, rent, rentid }) {
+type containerSignIFtype = {
+    Id: string,
+    data: any,
+    rent: boolean,
+    rentid: string,
+}
+
+export default function ContainerSignInform({ Id, data, rent, rentid }: containerSignIFtype) {
 
     const [rentday, setRentDay] = useState([]);
     const [signday, setSignDay] = useState([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]);
-    const [loading, setloading] = useState(false);
     const [priod, setPriod] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,7 +25,6 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
 
     function onClickopenRentB() {
         setModalOpen(true);
-        console.log(modalOpen);
     }
 
     const onClickSubmit = async () => {
@@ -31,7 +36,7 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
     function settings() {
         const nowdate = new Date();
         for (var i = 0; i < priod; i++) {
-            var temps = NowSignday;
+            let temps = NowSignday;
             if (signday[i] == true) {
                 NowSignday[i] = 2;
             }
@@ -64,7 +69,7 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
     useEffect(() => {
 
         if (Id !== "NULL") {
-            getDoc(doc(db, "lent", rentid)).then(doc => {
+            getDoc(doc(db, "lent", rentid)).then((doc : any) => {
                 const data = doc.data();
                 setRentDay(data.rentDay)
                 setSignDay(data.SignDay);
@@ -72,7 +77,7 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
             })
         }
     }, []);
-    const onClickSignB = (event) => {
+    const onClickSignB = (event: React.MouseEvent<HTMLElement>) => {
         const index = event.target.id;
         const temp = signday;
         temp[index] = !temp[index];
@@ -97,7 +102,7 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
     }
     return (
         <div>
-            {modalOpen && <AddRentInform state={modalOpen} setState={setModalOpen} Id={Id} />
+            {modalOpen && <AddRentInform setState={setModalOpen} Id={Id} />
             }
             <div>
                 {!rent && <button onClick={onClickopenRentB} className="bbb bg-white border-2 border-black hover:bg-gray-200">임대 정보 기입하기</button>}
@@ -108,7 +113,7 @@ export default function ContainerSignInform({ Id, data, rent, rentid }) {
                         <p>결제현황</p>
                     </div>
                     <div className="grid grid-cols-5" >
-                        {rentday.map((item, index) => (
+                        {rentday.map((item: any, index: number) => (
                             <div className="w-32 h-16">
                                 <div className=" w-32 h-12">
                                     <button id={index} onClick={onClickSignB} className={NSD[index] === 1 ? "btn btn-gray" : (NSD[index] === 2 ? "btn btn-green" : "btn btn-red")}>{rentday[index]}</button>

@@ -8,9 +8,12 @@ import { getStorage, ref, uploadBytes, listAll, getDownloadURL, } from "firebase
 import db from "../ net/db";
 import SideBar from "../components/SideBar";
 
-export default function ContainerEdit({ setOpenEdit }) {
+type ContainerEditType = {
+    setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-    const [renting, setRenting] = useState();
+export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
+
     const [nickname, setNickname] = useState();
     const [standard, setStandard] = useState();
     const [madeday, setMadeday] = useState();
@@ -22,7 +25,7 @@ export default function ContainerEdit({ setOpenEdit }) {
     const [imageUpload, setImageUpload] = useState([]);
     const [imageList, setImageList] = useState([]);
     //const [uuidimageList, setUuidImageList] = useState([]);
-    const uuidarray = [];
+    let uuidarray = [];
 
     const storage = getStorage(firebaseApp);
     const imageListRef = ref(storage, "images/");
@@ -38,9 +41,9 @@ export default function ContainerEdit({ setOpenEdit }) {
                 // setUuidImageList((uuidimageList) => [...uuidimageList, tempuuid]);
                 const imageRef = ref(storage, `images/${tempuuid}`);
                 console.log(imageRef);
-                uploadBytes(imageRef, item).then((snapshot) => {
-                    getDownloadURL(snapshot.ref).then((url) => {
-                        setImageList((prev) => [...prev, url]);
+                uploadBytes(imageRef, item).then((snapshot: any) => {
+                    getDownloadURL(snapshot.ref).then((url: any) => {
+                        setImageList((prev: any) => [...prev, url]);
                     });
                 });
             });
@@ -50,21 +53,21 @@ export default function ContainerEdit({ setOpenEdit }) {
 
 
     useEffect(() => {
-        listAll(imageListRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageList((prev) => [...prev, url]);
+        listAll(imageListRef).then((response: any) => {
+            response.items.forEach((item: any) => {
+                getDownloadURL(item).then((url: any) => {
+                    setImageList((prev: any) => [...prev, url]);
                 });
             });
         });
     }, []);
-    const onclickOptBtn = (num) => {
+    const onclickOptBtn = (num: number) => {
         copiedopt[num] = !copiedopt[num];
     }
 
     const router = useRouter();
 
-    const submit = async (event) => {
+    const submit = async () => {
         await upload();
         console.log("*");
         setNickname(nickname);
@@ -95,7 +98,7 @@ export default function ContainerEdit({ setOpenEdit }) {
                     <p className="font-bold text-2xl">컨테이너 추가하기</p>
                 </div>
                 <br />
-                <form onSubmit={(event) => {
+                <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
                     event.preventDefault();
                     return false;
                 }}>
@@ -103,35 +106,35 @@ export default function ContainerEdit({ setOpenEdit }) {
                         <input
                             multiple
                             type="file"
-                            onChange={(event) => {
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setImageUpload(event.target.files);
                             }}
                         />
                         <div className="propertys">
                             <label for="nickname"> 별명 :  </label>
-                            <input value={nickname} id="nickname" onChange={event => setNickname(event.target.value)} />
+                            <input value={nickname} id="nickname" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setNickname(event.target.value)} />
                         </div>
                         <div className="propertys">
                             <label for="standard"> 규격 :  </label>
-                            <input value={standard} id="standard" onChange={event => setStandard(event.target.value)} />
+                            <input value={standard} id="standard" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setStandard(event.target.value)} />
                         </div>
                         <div className="propertys">
                             <label for="madeday"> 제작일 : </label>
-                            <input value={madeday} id="madeday" onChange={event => setMadeday(event.target.value)} />
+                            <input value={madeday} id="madeday" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setMadeday(event.target.value)} />
 
                         </div>
                         <div className="propertys">
                             <label for="madecompany"> 제작회사 : </label>
-                            <input value={madecompany} id="standard" onChange={event => setMadecompany(event.target.value)} />
+                            <input value={madecompany} id="standard" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setMadecompany(event.target.value)} />
 
                         </div>
                         <div className="propertys">
                             <label for="purpose"> 용도 : </label>
-                            <input value={purpose} id="purpose" onChange={event => setPurpose(event.target.value)} />
+                            <input value={purpose} id="purpose" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPurpose(event.target.value)} />
                         </div>
                         <div className="propertys">
                             <label for="where"> 위치 : </label>
-                            <input value={where} id="where" onChange={event => setWhere(event.target.value)} />
+                            <input value={where} id="where" onChange={(event: React.ChangeEvent<HTMLInputElement>) => setWhere(event.target.value)} />
 
                         </div>
                         <div className="optionContainer">

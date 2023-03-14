@@ -2,7 +2,12 @@ import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../../ net/db";
 import { useState, useEffect } from "react";
 
-export default function Containerinform({ data, opts }) {
+type ContainerProps = {
+    data: any;
+    opts: any;
+};
+
+export default function Containerinform({ data, opts }: ContainerProps) {
 
     const [standard, setStandard] = useState('');
     const [nickname, setNickname] = useState("");
@@ -11,7 +16,6 @@ export default function Containerinform({ data, opts }) {
     const [where, setWhere] = useState();
     const [purpose, setPurpose] = useState("");
     const [optionText, setOptionText] = useState("");
-    const [urlList, seturlList] = useState([]);
     const [Optlist, setOptlist] = useState([]);
 
     var FullOptionList = ["에어컨", "냉난방기", "바닥 전기판넬", "스틸 도출배관", "불연재합판", "바닥철판", " 철재환풍기", "아크누전기"];
@@ -24,11 +28,10 @@ export default function Containerinform({ data, opts }) {
         setMadecompany(data.madecompany);
         setPurpose(data.purpose);
         var optstr = "";
-        Optlist.map((item, index) => {
+        Optlist.map((item : string, index : number) => {
             optstr += item;
             optstr += "  ";
         });
-        setOptionText(optstr);
     }, [data]);
 
     useEffect(() => {
@@ -39,7 +42,7 @@ export default function Containerinform({ data, opts }) {
         setMadecompany(data.madecompany);
         setPurpose(data.purpose);
         var optstr = "";
-        Optlist.map((item, index) => {
+        Optlist.map((item: string, index: number) => {
             optstr += item;
             optstr += "   ";
         });
@@ -52,7 +55,7 @@ export default function Containerinform({ data, opts }) {
             for (var i = 0; i < 8; i++) {
                 if (opts[i] === true) {
                     const w = FullOptionList[i];
-                    setOptlist((prev) => [...prev, w]);
+                    setOptlist((prev : any) => [...prev, w]);
                     console.log(FullOptionList[i]);
                 }
             }

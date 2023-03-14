@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 
 type SingDayState = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    signOk_list: Array<string>;
-    signNo_list: Array<string>;
+    signOk_list: any;
+    signNo_list: any;
 };
 
 export default function SignDayState({ setOpenModal, signOk_list, signNo_list }: SingDayState) {
@@ -21,14 +21,14 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list }:
         const sol = signOk_list;
         const snl = signNo_list;
         for (var i = 0; i < sol.length; i++) {
-            getDoc(doc(db, "articles", sol[i])).then((doc : any) => {
+            getDoc(doc(db, "articles", sol[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
                 setSignOk_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);
             })
         }
         for (var i = 0; i < snl.length; i++) {
-            getDoc(doc(db, "articles", snl[i])).then((doc : any) => {
+            getDoc(doc(db, "articles", snl[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
                 setSignNo_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);

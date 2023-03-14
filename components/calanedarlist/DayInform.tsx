@@ -3,21 +3,24 @@ import { collection, getDocs, query, where, onSnapshot } from "firebase/firestor
 import { useState, useEffect } from "react";
 import SignDayState from "../containerlist/modal/SignDayState";
 
-type DateProp = {
+interface MyComponentProps {
+    className?: string;
     date: any;
-};
-export default function DayInform({ date }: DateProp) {
+}
 
-    const [signOk_list, setSignOk_list] = useState([]);
-    const [signNo_list, setSignNo_list] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
-    const [list, setList] = useState([]);
+
+export default function DayInform(props: MyComponentProps) {
+
+    const [signOk_list, setSignOk_list] = useState<Array<string>>([]);
+    const [signNo_list, setSignNo_list] = useState<Array<string>>([]);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [list, setList] = useState<Array<any>>([]);
     const usersCollectionRef = collection(db, "lent");
 
     useEffect(() => {
         const q = query(
             usersCollectionRef,
-            where("rentDay", "array-contains", date)
+            where("rentDay", "array-contains", props.date)
         )
         onSnapshot(q, (snapshot) => {
             const getdatalist = snapshot.docs.map((doc: any) => ({
@@ -32,20 +35,22 @@ export default function DayInform({ date }: DateProp) {
 
 
     useEffect(() => {
-        for (var i = 0; i < list.length; i++) {
-            for (var j = 0; j < list[i].rentDay.length; j++) {
-                if (date == list[i].rentDay[j]) {
-                    if (list[i].SignDay[j] === true) {
-                        const tempp = list[i].ContainerID;
-                        console.log(tempp);
-                        setSignOk_list((temp) => [...temp, tempp]);
+        if (list !== undefined) {
+            for (var i = 0; i < list.length; i++) {
+                for (var j = 0; j < list[i].rentDay.length; j++) {
+                    if (props.date == list[i].rentDay[j]) {
+                        if (list[i].SignDay[j] === true) {
+                            const tempp = list[i].ContainerID;
+                            console.log(tempp);
+                            setSignOk_list((temp: any) => [...temp, tempp]);
+                        }
+                        else if (list[i].SignDay[j] === false) {
+                            const tempp = list[i].ContainerID;
+                            console.log(tempp);
+                            setSignNo_list((temp: any) => [...temp, tempp]);
+                        }
+                        break;
                     }
-                    else if (list[i].SignDay[j] === false) {
-                        const tempp = list[i].ContainerID;
-                        console.log(tempp);
-                        setSignNo_list((temp) => [...temp, tempp]);
-                    }
-                    break;
                 }
             }
         }

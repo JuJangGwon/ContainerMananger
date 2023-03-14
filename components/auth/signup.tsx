@@ -9,23 +9,29 @@ import {
 } from "firebase/auth";
 import authService from "../../ net/auth";
 
+type RegisterProps = {
+  email: string;
+  password: string;
+};
+/*
 
-export async function registerWithEamil(email, password) {
+export async function registerWithEamil({ email, password }: RegisterProps) {
   try {
     await createUserWithEmailAndPassword(authService, email, password).then(
-      (e) => { }
+      (e: React.ChangeEvent<HTMLInputElement>) => { }
     );
-  } catch (e) {
+  } catch (e: React.ChangeEvent<HTMLInputElement>) {
     return e.message.replace("Firebase: Error ", "");
   }
 }
 
 
 //Email로 로그인하는 함수
-export async function loginWithEamil(email, password) {
+export async function loginWithEamil({ email, password }: RegisterProps) {
   try {
     await signInWithEmailAndPassword(authService, email, password);
-  } catch (e) {
+  } catch (e: any) {
     return e.message.replace("Firebase: Error ", "");
   }
 }
+*/

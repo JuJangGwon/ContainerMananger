@@ -2,7 +2,13 @@ import { collection, getDoc, doc, query } from "firebase/firestore";
 import db from "../../../ net/db";
 import { useState, useEffect } from "react";
 
-export default function SignDayState({ setOpenModal, signOk_list, signNo_list }) {
+type SingDayState = {
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    signOk_list: any;
+    signNo_list: any;
+};
+
+export default function SignDayState({ setOpenModal, signOk_list, signNo_list }: SingDayState) {
 
     const [signOk_l, setSignOk_l] = useState([]);
     const [signNo_l, setSignNo_l] = useState([]);
@@ -15,17 +21,17 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list })
         const sol = signOk_list;
         const snl = signNo_list;
         for (var i = 0; i < sol.length; i++) {
-            getDoc(doc(db, "articles", sol[i])).then(doc => {
+            getDoc(doc(db, "articles", sol[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
-                setSignOk_l((event) => [...event, nickname]);
+                setSignOk_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);
             })
         }
         for (var i = 0; i < snl.length; i++) {
-            getDoc(doc(db, "articles", snl[i])).then(doc => {
+            getDoc(doc(db, "articles", snl[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
-                setSignNo_l((event) => [...event, nickname]);
+                setSignNo_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);
             })
         }
     }, [signOk_list]);
@@ -40,12 +46,12 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list })
             <div>
                 <button onClick={onclickX}>X</button>
                 {
-                    signOk_l.map((item, index) => {
+                    signOk_l.map((item: string, index: number) => {
                         <p> {signOk_l[index]} </p>
                     })
                 }
                 {
-                    signNo_l.map((item, index) => {
+                    signNo_l.map((item: string, index: number) => {
                         <p> {signNo_l[index]} </p>
                     })
                 }

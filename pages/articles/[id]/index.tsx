@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import db from "../../../ net/db"
-import { doc, getDoc, query } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import firebaseApp from "../../../ net/firebaseApp";
 import Image from 'next/image'
-import AddRentInform from "../../../components/containerlist/modal/AddRentInform";
 import RentInform from "../../../components/containerlist/containerinform/RentInform";
 import Containerinform from "../../../components/containerlist/containerinform/Containerinform";
 import ContainerSignInform from "../../../components/containerlist/containerinform/ContainerSignInform";
@@ -17,8 +16,6 @@ export default function index() {
     const [imgs, setImgs] = useState([]);
     const [url, setUrl] = useState();
 
-    const storage = getStorage(firebaseApp);
-
     const [showcontaininform, setShowcontaininform] = useState(true);
     const [showrentinform, setShowrentinform] = useState(false);
     const [showsigninform, setShowshowsigninform] = useState(false);
@@ -27,13 +24,11 @@ export default function index() {
     const [isRent, setIsRent] = useState(false);
     const [containerData, setContainerData] = useState([]);
     const [urlList, seturlList] = useState([]);
-    const [ImageNum, setImageNum] = useState();
+    const [ImageNum, setImageNum] = useState(0);
     const [Optlist, setOptlist] = useState([]);
     const [pivot, setPivot] = useState(1);
 
     // modal
-
-
 
     var ImageSettings = false;
 
@@ -49,7 +44,7 @@ export default function index() {
                 for (var i = 0; i < imgs.length; i++) {
                     const reference = ref(storage, `images/${imgs[i]}`);
                     await getDownloadURL(reference).then((x) => {
-                        seturlList((prev) => [...prev, x])
+                        seturlList((prev : any) => [...prev, x])
                     })
                 }
             }
@@ -66,8 +61,9 @@ export default function index() {
         ImageSettings = false;
     }, [url]);
     useEffect(() => {
-        getDoc(doc(db, "articles", router.query.id)).then(doc => {
+        getDoc(doc(db, "articles", router.query.id)).then((doc : any) => {
             const data = doc.data();
+            console.log(data);
             setContainerData(data);
             setImgs(data.uuidarray);
             setRentID(data.renting);
@@ -115,8 +111,6 @@ export default function index() {
         setShowshowsigninform(true);
     }
 
-    // {!isRent && <RentInform Id={RentID} />}
-    //  {!isRent && <button onClick={onClickopenRentB}>*</button>}
 
     return (
         <div className="flex gap-3">
@@ -141,7 +135,7 @@ export default function index() {
 
                     </div>
                     {showcontaininform && <Containerinform data={containerData} opts={containerData.opt} />}
-                    {showrentinform && <RentInform rent={isRent} Id={router.query.id} rentid={RentID} />}
+                    {showrentinform && <RentInform rent={isRent} Id = {router.query.id} rentid={RentID} />}
                     {showsigninform && <ContainerSignInform data={containerData} Id={router.query.id} rentid={RentID} rent={isRent} />}
 
                 </div>

@@ -1,23 +1,29 @@
 import db from "../../ net/db";
 import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import SignDayState from "../containerlist/modal/Signdaystate";
+import SignDayState from "../containerlist/modal/SignDayState";
 
-export default function DayInform({ date }) {
+interface MyComponentProps {
+    className?: string;
+    date: any;
+}
 
-    const [signOk_list, setSignOk_list] = useState([]);
-    const [signNo_list, setSignNo_list] = useState([]);
-    const [openModal, setOpenModal] = useState(false);
-    const [list, setList] = useState([]);
+
+export default function DayInform(props: MyComponentProps) {
+
+    const [signOk_list, setSignOk_list] = useState<Array<string>>([]);
+    const [signNo_list, setSignNo_list] = useState<Array<string>>([]);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [list, setList] = useState<Array<any>>([]);
     const usersCollectionRef = collection(db, "lent");
 
     useEffect(() => {
         const q = query(
             usersCollectionRef,
-            where("rentDay", "array-contains", date)
+            where("rentDay", "array-contains", props.date)
         )
         onSnapshot(q, (snapshot) => {
-            const getdatalist = snapshot.docs.map((doc) => ({
+            const getdatalist = snapshot.docs.map((doc: any) => ({
                 id: doc.id,
                 ...doc.data(),
             }));
@@ -27,32 +33,30 @@ export default function DayInform({ date }) {
         });
     }, []);
 
-    useEffect(() => {
-        console.log(signNo_list.length);
-    }, [signNo_list]);
-
 
     useEffect(() => {
-        for (var i = 0; i < list.length; i++) {
-            for (var j = 0; j < list[i].rentDay.length; j++) {
-                if (date == list[i].rentDay[j]) {
-                    if (list[i].SignDay[j] === true) {
-                        const tempp = list[i].ContainerID;
-                        console.log(tempp);
-                        setSignOk_list((temp) => [...temp, tempp]);
+        if (list !== undefined) {
+            for (var i = 0; i < list.length; i++) {
+                for (var j = 0; j < list[i].rentDay.length; j++) {
+                    if (props.date == list[i].rentDay[j]) {
+                        if (list[i].SignDay[j] === true) {
+                            const tempp = list[i].ContainerID;
+                            console.log(tempp);
+                            setSignOk_list((temp: any) => [...temp, tempp]);
+                        }
+                        else if (list[i].SignDay[j] === false) {
+                            const tempp = list[i].ContainerID;
+                            console.log(tempp);
+                            setSignNo_list((temp: any) => [...temp, tempp]);
+                        }
+                        break;
                     }
-                    else if (list[i].SignDay[j] === false) {
-                        const tempp = list[i].ContainerID;
-                        console.log(tempp);
-                        setSignNo_list((temp) => [...temp, tempp]);
-                    }
-                    break;
                 }
             }
         }
     }, [list]);
 
-    const onClickDay = (event) => {
+    const onClickDay = () => {
         setOpenModal(true);
     }
 
@@ -76,7 +80,6 @@ export default function DayInform({ date }) {
                             <p></p>
                     }
                 </div>
-
                 <div className="flex gap-1">
                     {
                         signNo_list.length !== 0

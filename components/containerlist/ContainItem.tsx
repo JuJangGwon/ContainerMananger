@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { getStorage, ref, uploadBytes, listAll, getDownloadURL, } from "firebase/storage";
-import db from "../../ net/db";
+import { getStorage, ref, getDownloadURL, } from "firebase/storage";
 
 import Image from "next/image"
 import Link from "next/link";
 
-export default function ContainItem({ item, url, renting }) {
+type ContainItem = {
+    item: any;
+    url: string;
+    renting: string;
+}
+
+export default function ContainItem({ item, url, renting }: ContainItem) {
 
     const [imgurl, setImgurl] = useState();
 
@@ -15,10 +20,8 @@ export default function ContainItem({ item, url, renting }) {
             if (url !== undefined) {
                 const storage = getStorage();
                 const reference = ref(storage, `images/${url}`);
-                await getDownloadURL(reference).then((x) => {
+                await getDownloadURL(reference).then((x : any) => {
                     setImgurl(x);
-                    //    setReady(false);
-                    //    UploadScreen(setUploading(false));
                 })
             }
         }

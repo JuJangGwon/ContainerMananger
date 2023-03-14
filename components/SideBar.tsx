@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Calanendar from "../pages/calanendar";
-import ContainerEdit from "../pages/ContainerEdit";
 
 export default function SideBar() {
   const router = useRouter();
@@ -20,12 +18,12 @@ export default function SideBar() {
           </div>
         </div>
         <Link href={`/`}>
-        <div
-          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-        >
-          <i className="bi bi-house-door-fill"></i>
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
-        </div>
+          <div
+            className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+          >
+            <i className="bi bi-house-door-fill"></i>
+            <span className="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+          </div>
         </Link>
         <Link href={`/`}>
           <div
@@ -58,7 +56,7 @@ export default function SideBar() {
         </Link>
 
         <div className="my-4 bg-gray-600 h-[1px]"></div>
-    
+
         <Link href={`/loginpage`}>
           <div
             className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"

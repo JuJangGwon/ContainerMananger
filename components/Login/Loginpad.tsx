@@ -5,7 +5,7 @@ export default function Loginpad() {
     const [userID, setUserID] = useState();
     const [userPW, setUserPW] = useState();
 
-    const onClickLoginButton = (event) => {
+    const onClickLoginButton = (event: React.MouseEvent<HTMLElement>) => {
 
         window.confirm("로그인 기능 구현중입니다.");
         /*
@@ -25,8 +25,8 @@ export default function Loginpad() {
             }}>
                 <h1 className="font-bold text-xl"> 로그인 </h1>
                 <br />
-                <input id="user_id" value={userID} onChange={event => setUserID(event.target.value)} placeholder="아이디 / 이메일" />
-                <input id="user_pw" value={userPW} onChange={event => setUserPW(event.target.value)} placeholder="비밀번호" />
+                <input id="user_id" value={userID} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserID(event.target.value)} placeholder="아이디 / 이메일" />
+                <input id="user_pw" value={userPW} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserPW(event.target.value)} placeholder="비밀번호" />
                 <button className="btn" onClick={onClickLoginButton}> 로그인 </button>
             </form>
 

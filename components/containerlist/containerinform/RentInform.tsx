@@ -3,7 +3,14 @@ import db from "../../../ net/db";
 import { useState, useEffect } from "react";
 import AddRentInform from "../modal/AddRentInform";
 
-export default function RentInform({ Id, rent, rentid}) {
+type rentinformtype = {
+    Id: string,
+    rent: boolean,
+    rentid: string,
+}
+
+
+export default function RentInform({ Id, rent, rentid }: rentinformtype) {
 
     const [rentCompany, setRentCompany] = useState("");
     const [rentManager, setRentManager] = useState("");
@@ -30,7 +37,7 @@ export default function RentInform({ Id, rent, rentid}) {
     useEffect(() => {
 
         if (Id !== "NULL") {
-            getDoc(doc(db, "lent", rentid)).then(doc => {
+            getDoc(doc(db, "lent", rentid)).then((doc : any) => {
                 const data = doc.data();
                 setRentCompany(data.rentCompany);
                 setRentManager(data.rentManager);
@@ -49,7 +56,7 @@ export default function RentInform({ Id, rent, rentid}) {
     }, []);
     return (
         <div>
-            {modalOpen && <AddRentInform state={modalOpen} setState={setModalOpen} Id={Id} />
+            {modalOpen && <AddRentInform setState={setModalOpen} Id={Id} />
             }
             <div>
                 {!rent && <button onClick={onClickopenRentB} className="bbb bg-white border-2 border-black hover:bg-gray-200">임대 정보 기입하기</button>}

@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 
+const nextConfig = {
+  basePath: "/ContainerMananger",
+}
+
 module.exports = {
   env: {
     BASE_URL: process.env.BASE_URL,
@@ -8,6 +12,7 @@ module.exports = {
     es6: true,
     node: true,
   },
+
   eslint: {
     ignoreDuringBuilds: true
   },

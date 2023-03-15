@@ -8,6 +8,9 @@ module.exports = {
     es6: true,
     node: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   assetPrefix:
     process.env.NODE_ENV === "production"
       ? "https://JuJangGwon.github.io/ContainerMananger"

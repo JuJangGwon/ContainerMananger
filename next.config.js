@@ -9,7 +9,7 @@ module.exports = {
   },
   assetPrefix:
     process.env.NODE_ENV === "production"
-      ? "https://JuJangGwon.github.io/ContainerMananger"
+      ? "http://JuJangGwon.github.io/ContainerMananger"
       : "",
 
   images: {

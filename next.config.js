@@ -8,13 +8,14 @@ module.exports = {
     es6: true,
     node: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
-  assetPrefix:
-    process.env.NODE_ENV === "production"
-      ? "https://JuJangGwon.github.io/ContainerMananger"
-      : "",
+  assetPrefix: "https://JuJangGwon.github.io/ContainerMananger"
+  ,
 
   images: {
     domains: ['firebasestorage.googleapis.com'],

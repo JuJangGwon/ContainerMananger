@@ -30,6 +30,15 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
     const storage = getStorage(firebaseApp);
     const imageListRef = ref(storage, "images/");
 
+    function clear() {
+        setNickname("");
+        setStandard("");
+        setMadeday("");
+        setMadecompany("");
+        setWhere("");
+        setPurpose("");
+        setOpt([false, false, false, false, false, false, false, false]);
+    }
     function upload() {
         return new Promise((resolve, reject) => {
 
@@ -50,7 +59,6 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
             resolve(uuidarray);
         });
     };
-
 
     useEffect(() => {
         listAll(imageListRef).then((response: any) => {
@@ -86,6 +94,8 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
                 uuidarray,
                 renting,
             })
+        alert("업로드 되었습니다");
+        clear();
     }
     const onExitClick = () => {
         setOpenEdit(true);

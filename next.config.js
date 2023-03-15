@@ -3,6 +3,7 @@
 module.exports = {
   env: {
     BASE_URL: process.env.BASE_URL,
+    rapidApiKey: process.env.rapidApiKey,
     browser: true,
     es6: true,
     node: true,

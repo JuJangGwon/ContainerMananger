@@ -11,9 +11,9 @@ export default function ContainList() {
 
     useEffect(() => {
         getDocs(query(collection(db, "articles")))
-            .then((results:any) => {
+            .then((results: any) => {
                 const newList = [];
-                results.forEach((doc :any) => {
+                results.forEach((doc: any) => {
                     const data = doc.data();
                     data.id = doc.id;
                     newList.push(data);
@@ -30,7 +30,7 @@ export default function ContainList() {
             <div className="my-2 bg-gray-600 h-[1px]"></div>
 
             <div className="grid grid-cols-5" >
-                {list.map((item : any)=> (
+                {list.map((item: any) => (
                     <div key={item.id} className="p-2">
                         <div>
                             <ContainItem item={item} url={item.uuidarray[0]} renting={item.renting} />

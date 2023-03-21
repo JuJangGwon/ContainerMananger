@@ -19,8 +19,6 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  assetPrefix: "https://JuJangGwon.github.io/ContainerMananger"
-  ,
 
   images: {
     domains: ['firebasestorage.googleapis.com'],

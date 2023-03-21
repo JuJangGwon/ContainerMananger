@@ -2,7 +2,6 @@
   "name": "mylittleassist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://JuJangGwon.github.io/ContainerMananger",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",

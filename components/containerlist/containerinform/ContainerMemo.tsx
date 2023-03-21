@@ -3,22 +3,23 @@ import { getStorage, ref, uploadBytes, listAll, getDownloadURL, } from "firebase
 import { useEffect, useState } from "react";
 import db from "../../../ net/db";
 
-export default function ContainerMemo({ data }) {
+export default function ContainerMemo({ rentid }) {
 
     const [inputtext, setText] = useState("");
     useEffect(() => {
-        /*
-        if (data !== NULL) {
-            getDoc(doc(db, "lent", data.rentid)).then((doc: any) => {
-                const lentdata = doc.data();
-                setText(lentdata.text);
+
+        if (rentid !== "NULL") {
+            getDoc(doc(db, "lent", rentid)).then((doc: any) => {
+                const data = doc.data();
+                setText(data.text);
             })
         }
-        */
+
     }, []);
 
     function onClickSaveBtn() {
-        updateDoc(doc(db, "rent"), { // 수정하고 업데이트하기
+        console.log(inputtext);
+        updateDoc(doc(db, "lent", `${rentid}`), { // 수정하고 업데이트하기
             text: inputtext,
         });
     }

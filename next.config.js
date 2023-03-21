@@ -12,7 +12,6 @@ module.exports = {
     es6: true,
     node: true,
   },
-  assetPrefix: "https://JuJangGwon.github.io/ContainerMananger",
   eslint: {
     ignoreDuringBuilds: true
   },

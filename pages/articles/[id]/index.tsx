@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import db from "../../../ net/db"
 import { doc, getDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import firebaseApp from "../../../ net/firebaseApp";
 import Image from 'next/image'
 import RentInform from "../../../components/containerlist/containerinform/RentInform";
 import Containerinform from "../../../components/containerlist/containerinform/Containerinform";
 import ContainerSignInform from "../../../components/containerlist/containerinform/ContainerSignInform";
 import SideBar from "../../../components/SideBar";
 import ContainerMemo from "../../../components/containerlist/containerinform/ContainerMemo";
+import Containersettings from "../../../components/containerlist/containerinform/Containersettings";
+
 export default function index() {
 
     const router = useRouter();
@@ -20,6 +21,8 @@ export default function index() {
     const [showrentinform, setShowrentinform] = useState(false);
     const [showsigninform, setShowshowsigninform] = useState(false);
     const [showcontaimermemo, setShowcontainermemo] = useState(false);
+    const [showcontainsettings, showContainsettings] = useState(false);
+
 
 
     const [RentID, setRentID] = useState();
@@ -102,24 +105,36 @@ export default function index() {
         setShowrentinform(false);
         setShowshowsigninform(false);
         setShowcontainermemo(false);
+        showContainsettings(false);
     }
     function onClickRentinformB() {
         setShowcontaininform(false);
         setShowrentinform(true);
         setShowshowsigninform(false);
         setShowcontainermemo(false);
+        showContainsettings(false);
+
     }
     function onClickSigninformB() {
         setShowcontaininform(false);
         setShowrentinform(false);
         setShowshowsigninform(true);
         setShowcontainermemo(false);
+        showContainsettings(false);
     }
     function onClickShowMemoB() {
         setShowcontaininform(false);
         setShowrentinform(false);
         setShowshowsigninform(false);
         setShowcontainermemo(true);
+        showContainsettings(false);
+    }
+    function onClickShowSettingsB() {
+        setShowcontaininform(false);
+        setShowrentinform(false);
+        setShowshowsigninform(false);
+        setShowcontainermemo(false);
+        showContainsettings(true);
     }
 
 
@@ -142,13 +157,16 @@ export default function index() {
                         <button onClick={onClickContainerInformB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">컨테이너 정보</button>
                         <button onClick={onClickRentinformB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">임대 정보</button>
                         <button onClick={onClickSigninformB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">결제 정보</button>
-                        <button onClick={onClickShowMemoB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">기타 사항</button>
+                        <button onClick={onClickShowMemoB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">결제 메모</button>
+                        <button onClick={onClickShowSettingsB} className="border-2 border-gray w-36 h-12 bg-white focus:bg-slate-300 focus:font-bold">컨테이너 설정</button>
 
                     </div>
                     {showcontaininform && <Containerinform data={containerData} opts={containerData.opt} />}
                     {showrentinform && <RentInform rent={isRent} Id={router.query.id} rentid={RentID} />}
                     {showsigninform && <ContainerSignInform data={containerData} Id={router.query.id} rentid={RentID} rent={isRent} />}
-                    {showcontaimermemo && <ContainerMemo data={containerData} />}
+                    {showcontaimermemo && <ContainerMemo rentid={RentID} />}
+                    {showcontainsettings && <Containersettings />}
+
                 </div>
             </div>
             <hr />

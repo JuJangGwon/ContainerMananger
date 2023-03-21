@@ -1,5 +1,3 @@
-import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
-import db from "../../../ net/db";
 import { useState, useEffect } from "react";
 
 type ContainerProps = {

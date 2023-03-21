@@ -50,6 +50,7 @@ export default function AddRentInform({ setState, Id }: AddRentinformType) {
         setRentManagerTel(rentManagerTel);
         setTips(tips);
 
+        const text = "";
         const rentDay = ([]);
         const SignDay = ([]);
         const final_signDay = new Date(rentStartDay) - 1;
@@ -82,6 +83,7 @@ export default function AddRentInform({ setState, Id }: AddRentinformType) {
                 rentDay,
                 SignDay,
                 final_signDay,
+                text,
             })
         const rentData_id = rentData.id;
         console.log(rentData_id);

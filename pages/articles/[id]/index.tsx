@@ -148,7 +148,7 @@ export default function index() {
                     {showcontaininform && <Containerinform data={containerData} opts={containerData.opt} />}
                     {showrentinform && <RentInform rent={isRent} Id={router.query.id} rentid={RentID} />}
                     {showsigninform && <ContainerSignInform data={containerData} Id={router.query.id} rentid={RentID} rent={isRent} />}
-                    {showcontaimermemo && <ContainerMemo />}
+                    {showcontaimermemo && <ContainerMemo data={containerData} />}
                 </div>
             </div>
             <hr />

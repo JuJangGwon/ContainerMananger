@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "homepage": "https://JuJangGwon.github.io/ContainerMananger",
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",

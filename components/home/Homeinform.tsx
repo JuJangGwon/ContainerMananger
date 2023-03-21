@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, onSnapshot, getCountFromServer } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc, query, where, onSnapshot, getCountFromServer } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import db from "../../ net/db";
 
@@ -8,6 +8,9 @@ export default function Homeinform() {
     const [rentNum, setRentNum] = useState(0);
     const [overdueNum, setOverdueNum] = useState(0);
     const [returnNum, setReturnNum] = useState(0);
+
+    const [returnList, setReturnList] = useState([]);
+    const [overdueNumList, setOverdueNumList] = useState([]);
 
 
 
@@ -20,9 +23,61 @@ export default function Homeinform() {
         const snapshot = await getCountFromServer(q);
         setRentNum(snapshot.data().count);
     }
+    async function countOverdueContainer() {
+        /*
+        const q = query(
+            collection(db, "lent"),
+            where("rentDay", "array-contains",)
+        )
+        onSnapshot(q, (snapshot) => {
+            const getdatalist = snapshot.docs.map((doc: any) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
+            if (getdatalist.length > 0) {
+                setList(getdatalist);
+            }
+        });
+        */
+    }
+    async function countFinishContainer() {
+        const today = new Date();
+        const todayformat = today.getFullYear() +
+            '-' + ((today.getMonth() + 1) < 9 ? "0" + (today.getMonth() + 1) : (today.getMonth() + 1)) +
+            '-' + ((today.getDate()) < 9 ? "0" + (today.getDate()) : (today.getDate()));
+
+        getDocs(query(collection(db, "lent")))
+            .then((results: any) => {
+                let return_count = 0;
+                let overdue_count = 0;
+
+                results.forEach((doc: any) => {
+                    const data = doc.data();
+                    // 수거해야될 컨테이너 인지 체크
+                    if (data.rentEndDay <= todayformat) {
+                        setReturnList((event: any) => [...event, data.ContainerID]);
+                        return_count++;
+                    }
+                    // 연체된 컨테이너 인지 체크 
+                    for (let i = 0; i < data.rentPriod; i++) {
+                        if (data.rentDay[i] > todayformat)
+                            break;
+                        if (data.SignDay[i] === false) {
+                            overdue_count++;
+                            setOverdueNumList((event: any) => [...event, data.ContainerID]);
+                            break;
+                        }
+                    }
+
+                });
+                setOverdueNum(overdue_count);
+                setReturnNum(return_count);
+            })
+    }
 
     useEffect(() => {
         countRentContainer();
+        countFinishContainer();
         /*
         const q = query(
             usersCollectionRef,
@@ -63,7 +118,7 @@ export default function Homeinform() {
                         <p>{overdueNum}</p>
                     </div>
                     <div>
-                        <p> 반납해야할 컨테이너 </p>
+                        <p> 반납받을 컨테이너 </p>
                         <p>{returnNum}</p>
                     </div>
                 </div>

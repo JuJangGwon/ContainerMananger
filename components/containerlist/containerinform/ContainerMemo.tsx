@@ -30,9 +30,9 @@ export default function ContainerMemo({ rentid }) {
 
     return (
         <div>
-            <input className="align-top w-96 h-48 bg-white border-2 border-gray"
+            <textarea className="align-top w-96 h-48 bg-white border-2 border-gray"
                 value={inputtext} onChange={onChangeInput} >
-            </input>
+            </textarea>
             <button onClick={onClickSaveBtn}>
                 저장하기
             </button>

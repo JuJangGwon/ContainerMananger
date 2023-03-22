@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
-import { loginWithEamil } from "../auth/signup"
+import { loginEmail } from "../auth/signup"
 
 export default function Loginpad() {
     const [userID, setUserID] = useState();
     const [userPW, setUserPW] = useState();
 
-    const onClickLoginButton = (event: React.MouseEvent<HTMLElement>) => {
+    const onClickloginB = (event) => {
+        event.preventDefault();
+        loginEmail(userID, userPW).then((result) => {
+            console.log(result);
+            const user = result.user;
+            loginSuccess(user.email, user.uid);
+        }).catch((reject) => {
+            loginFail();
+        });
+    };
 
-        window.confirm("로그인 기능 구현중입니다.");
-        /*
-        setUserID(userID);
-        setUserPW(userPW);
-
-        console.log("login");
-        loginWithEamil(userID, userPW);
-        */
-    }
-
+    const loginSuccess = (email, uid) => {
+        const login_area = document.getElementById('login-area');
+        login_area.innerHTML = `<h2>Login 성공!</h2><div>uid: ${uid}</div><div>email: ${email}</div>`;
+    };
+    const loginFail = () => {
+        var prom = alert('로그인에 실패하였습니다.');
+    };
 
     return (
         <div>
@@ -27,7 +33,7 @@ export default function Loginpad() {
                 <br />
                 <input id="user_id" value={userID} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserID(event.target.value)} placeholder="아이디 / 이메일" />
                 <input id="user_pw" value={userPW} onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUserPW(event.target.value)} placeholder="비밀번호" />
-                <button className="btn" onClick={onClickLoginButton}> 로그인 </button>
+                <button className="btn" onClick={onClickloginB}> 로그인 </button>
             </form>
 
             <style jsx> {`

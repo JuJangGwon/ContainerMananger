@@ -14,21 +14,15 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list }:
     const [signNo_l, setSignNo_l] = useState([]);
 
     useEffect(() => {
-        console.log(signOk_l[0]);
-    }, [signOk_l]);
-
-    useEffect(() => {
-        const sol = signOk_list;
-        const snl = signNo_list;
-        for (var i = 0; i < sol.length; i++) {
-            getDoc(doc(db, "articles", sol[i])).then((doc: any) => {
+        for (var i = 0; i < signOk_list.length; i++) {
+            getDoc(doc(db, "articles", signOk_list[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
                 setSignOk_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);
             })
         }
-        for (var i = 0; i < snl.length; i++) {
-            getDoc(doc(db, "articles", snl[i])).then((doc: any) => {
+        for (var i = 0; i < signNo_list.length; i++) {
+            getDoc(doc(db, "articles", signNo_list[i])).then((doc: any) => {
                 const data = doc.data();
                 const nickname = data.nickname;
                 setSignNo_l((event: React.ChangeEvent<HTMLInputElement>) => [...event, nickname]);
@@ -43,7 +37,7 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list }:
 
     return (
         <div className="form">
-            <div>
+            <div className="w-92 h-92 bg-white z-50">
                 <button onClick={onclickX}>X</button>
                 {
                     signOk_l.map((item: string, index: number) => {
@@ -55,26 +49,8 @@ export default function SignDayState({ setOpenModal, signOk_list, signNo_list }:
                         <p> {signNo_l[index]} </p>
                     })
                 }
+
             </div>
-            <style jsx>
-                {
-                    `
-                    .form
-                    {
-                        width: 400px;
-                        height: 600px;
-                        position: absolute;
-                        z-index: 999;
-                        background-color: white;
-                        border: 1px solid black;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                    }
-                    
-                    `
-                }
-            </style>
         </div>
     );
 }

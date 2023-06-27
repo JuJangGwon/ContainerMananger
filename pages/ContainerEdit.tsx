@@ -24,7 +24,6 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
     let copiedopt = opt;
     const [imageUpload, setImageUpload] = useState([]);
     const [imageList, setImageList] = useState([]);
-    //const [uuidimageList, setUuidImageList] = useState([]);
     let uuidarray = [];
 
     const storage = getStorage(firebaseApp);
@@ -47,7 +46,6 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
                 const tempuuid = uuid() + ".png";
                 uuidarray.push(tempuuid);
                 console.log(uuidarray);
-                // setUuidImageList((uuidimageList) => [...uuidimageList, tempuuid]);
                 const imageRef = ref(storage, `images/${tempuuid}`);
                 console.log(imageRef);
                 uploadBytes(imageRef, item).then((snapshot: any) => {
@@ -95,7 +93,7 @@ export default function ContainerEdit({ setOpenEdit }: ContainerEditType) {
                 renting,
             })
         alert("업로드 되었습니다");
-        clear();
+        router.push('/');
     }
     const onExitClick = () => {
         setOpenEdit(true);

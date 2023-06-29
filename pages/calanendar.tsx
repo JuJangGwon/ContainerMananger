@@ -1,10 +1,10 @@
 import moment from "moment";
-import Link from "next/link";
 import DayInform from "../components/calanedarlist/DayInform";
 import SideBar from "../components/SideBar";
 import db from "../ net/db";
 import { collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import DayModal from "../components/calanedarlist/DayModal";
 
 interface DateData {
   full: string;
@@ -28,7 +28,7 @@ export default function Calendar() {
     <div className="con flex gap-3">
       <SideBar />
       <div className="bg-white">
-
+        {openModal ? <DayModal setOpenModal={setOpenModal} /> : null}
         <div className="header">
           <div className="bg-gray-100 w-192 h-12 flex justify-between">
             <p className="font-bold text-2xl">대금 결제 일정 </p>
@@ -61,6 +61,7 @@ export default function Calendar() {
 
 export const MonthCalendar = ({ selected }: { selected: moment.Moment }) => {
   let date = selected.clone().startOf("month");
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   let dates: DateData[] = [];
 
@@ -108,7 +109,7 @@ export const MonthCalendar = ({ selected }: { selected: moment.Moment }) => {
                     <button id={day.full} value={day.full}>
                       <div id={day.full} value={day.full} className="flex gap-10">
                         <span id={day.full} value={day.full}>{day.date}</span>
-                        <DayInform date={day.full} />
+                        <DayInform setOpenModal={setOpenModal} date={day.full} />
                       </div>
                     </button>
                   ) : (

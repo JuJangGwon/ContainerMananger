@@ -9,11 +9,10 @@ interface MyComponentProps {
 }
 
 
-export default function DayInform(props: MyComponentProps) {
+export default function DayInform(setOpenModal, props: MyComponentProps) {
 
     const [signOk_list, setSignOk_list] = useState<Array<string>>([]);
     const [signNo_list, setSignNo_list] = useState<Array<string>>([]);
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [list, setList] = useState<Array<any>>([]);
     const usersCollectionRef = collection(db, "lent");
 
@@ -62,7 +61,6 @@ export default function DayInform(props: MyComponentProps) {
 
     return (
         <div>
-            {openModal && <SignDayState setOpenModal={setOpenModal} signNo_list={signNo_list} signOk_list={signOk_list} />}
             <button onClick={onClickDay}>
                 <div className="flex gap-1">
                     {

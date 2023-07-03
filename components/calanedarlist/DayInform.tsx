@@ -1,9 +1,8 @@
 import db from "../../ net/db";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import openDayModalSlice from "../../redux/reducer/openDaymodal";
 import { ModalsetOn } from "../../redux/reducer/openDaymodal"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 interface MyComponentProps {
     className?: string;

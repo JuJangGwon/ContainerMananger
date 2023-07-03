@@ -29,6 +29,10 @@ export default function Calendar() {
     <div className="con flex gap-3">
       <SideBar />
       <div className="bg-white">
+        {
+          openModal ? <DayModal/> : null
+
+        }
         <div className="header">
           <div className="bg-gray-100 w-192 h-12 flex justify-between">
             <p className="font-bold text-2xl">대금 결제 일정 </p>

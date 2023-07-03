@@ -1,7 +1,8 @@
 import { collection, getDoc, doc, query } from "firebase/firestore";
 import db from "../../ net/db";
 import { useState, useEffect } from "react";
-
+import { ModalsetOff } from "../../redux/reducer/openDaymodal";
+import { useDispatch } from "react-redux";
 
 type SingDayState = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,11 +10,12 @@ type SingDayState = {
     signNo_list: any;
 };
 
-export default function DayModal({  signOk_list, signNo_list }: SingDayState) {
+export default function DayModal() {
 
+    const dispatch = useDispatch();
     const [signOk_l, setSignOk_l] = useState([]);
     const [signNo_l, setSignNo_l] = useState([]);
-
+    /*
     useEffect(() => {
         for (var i = 0; i < signOk_list.length; i++) {
             getDoc(doc(db, "articles", signOk_list[i])).then((doc: any) => {
@@ -30,27 +32,19 @@ export default function DayModal({  signOk_list, signNo_list }: SingDayState) {
             })
         }
     }, [signOk_list]);
-
+    */
 
     function onclickX() {
-        setOpenModal(false);
+        dispatch(ModalsetOff());
     }
 
     return (
-        <div className="form">
-            <div className="w-92 h-92 bg-white z-50">
+        <div>
+            <div className="w-92 h-92 bg-white -z-50">
                 <button onClick={onclickX}>X</button>
                 {
-                    signOk_l.map((item: string, index: number) => {
-                        <p> {signOk_l[index]} </p>
-                    })
-                }
-                {
-                    signNo_l.map((item: string, index: number) => {
-                        <p> {signNo_l[index]} </p>
-                    })
-                }
 
+                }
             </div>
         </div>
     );

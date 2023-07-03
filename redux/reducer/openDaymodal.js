@@ -5,17 +5,17 @@ let initialState = {
 }
 
 const openDayModalSlice = createSlice({
-    name: "modal",
+    name: "openDayModalSlice",
     initialState,
     reducers: {
-        setOn(state) {
+        ModalsetOn(state) {
             state.openDayModal = true;
         },
-        setOff(state) {
+        ModalsetOff(state) {
             state.openDayModal = false;
         },
     }
 })
 
 export default openDayModalSlice.reducer;
-export const { setOn, setOff } = openDayModalSlice.actions;
+export const { ModalsetOn, ModalsetOff } = openDayModalSlice.actions;

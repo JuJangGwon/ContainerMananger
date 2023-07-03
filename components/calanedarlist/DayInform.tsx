@@ -1,7 +1,9 @@
 import db from "../../ net/db";
-import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import SignDayState from "../containerlist/modal/SignDayState";
+import openDayModalSlice from "../../redux/reducer/openDaymodal";
+import { ModalsetOn } from "../../redux/reducer/openDaymodal"
+import { useDispatch, useSelector } from "react-redux";
 
 interface MyComponentProps {
     className?: string;
@@ -9,7 +11,10 @@ interface MyComponentProps {
 }
 
 
-export default function DayInform(setOpenModal, props: MyComponentProps) {
+export default function DayInform(props: MyComponentProps) {
+
+    const dispatch = useDispatch();
+    //   const memberlist = useSelector((state) => state.openDayModalSlice.openDayModalSlice);
 
     const [signOk_list, setSignOk_list] = useState<Array<string>>([]);
     const [signNo_list, setSignNo_list] = useState<Array<string>>([]);
@@ -56,7 +61,7 @@ export default function DayInform(setOpenModal, props: MyComponentProps) {
     }, [list]);
 
     const onClickDay = () => {
-        setOpenModal(true);
+        dispatch(ModalsetOn());
     }
 
     return (

@@ -2,13 +2,14 @@ import { collection, getDoc, doc, query } from "firebase/firestore";
 import db from "../../ net/db";
 import { useState, useEffect } from "react";
 
+
 type SingDayState = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     signOk_list: any;
     signNo_list: any;
 };
 
-export default function DayModal({ setOpenModal, signOk_list, signNo_list }: SingDayState) {
+export default function DayModal({  signOk_list, signNo_list }: SingDayState) {
 
     const [signOk_l, setSignOk_l] = useState([]);
     const [signNo_l, setSignNo_l] = useState([]);

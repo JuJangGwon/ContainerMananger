@@ -5,6 +5,7 @@ import db from "../ net/db";
 import { collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import DayModal from "../components/calanedarlist/DayModal";
+import { useDispatch, useSelector } from "react-redux";
 
 interface DateData {
   full: string;
@@ -13,7 +14,7 @@ interface DateData {
 
 export default function Calendar() {
   const [selected, setSelected] = useState(moment());
-
+  const openModal = useSelector((state) => state.openDaymodal.openDayModal);
   function moveNextMonth() {
     setSelected(selected.clone().add(1, "month"));
   }
@@ -28,7 +29,6 @@ export default function Calendar() {
     <div className="con flex gap-3">
       <SideBar />
       <div className="bg-white">
-        {openModal ? <DayModal setOpenModal={setOpenModal} /> : null}
         <div className="header">
           <div className="bg-gray-100 w-192 h-12 flex justify-between">
             <p className="font-bold text-2xl">대금 결제 일정 </p>
@@ -109,7 +109,7 @@ export const MonthCalendar = ({ selected }: { selected: moment.Moment }) => {
                     <button id={day.full} value={day.full}>
                       <div id={day.full} value={day.full} className="flex gap-10">
                         <span id={day.full} value={day.full}>{day.date}</span>
-                        <DayInform setOpenModal={setOpenModal} date={day.full} />
+                        <DayInform date={day.full} />
                       </div>
                     </button>
                   ) : (

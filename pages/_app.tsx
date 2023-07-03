@@ -6,14 +6,18 @@ import "tailwindcss/tailwind.css";
 import '../styles/globals.css'
 import { PortfolioProvider } from "../components/context/context"
 import { prefix } from "../config/config"
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps }) => {
   return (
     <PortfolioProvider value={{ prefix }}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </PortfolioProvider>
   );
 }
